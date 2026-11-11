@@ -3,12 +3,20 @@ add_library(KNJGfx9341 INTERFACE)
 # Pico 2 W (PICO_BOARD_VALUE=4) として認識させる
 target_compile_definitions(KNJGfx9341 INTERFACE PICO_BOARD_VALUE=4)
 
+# C++17を有効化し、警告(-Werror)でビルドが止まらないようにする
+set(CMAKE_CXX_STANDARD 17)
+target_compile_options(KNJGfx9341 INTERFACE
+    -Wno-error
+    -Wno-unknown-pragmas
+    $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++17>
+)
+
 set(SRC_FILES
     ${CMAKE_CURRENT_LIST_DIR}/misc/defines.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_GFX_Library/Adafruit_GFX.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_GFX_Library/Adafruit_SPITFT.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_ILI9341/Adafruit_ILI9341.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/spi/SPI.cpp    
+    ${CMAKE_CURRENT_LIST_DIR}/spi/SPI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Kanji/KanjiHelper.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/cyw43_wrappers.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/delay.cpp
