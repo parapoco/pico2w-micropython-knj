@@ -25,7 +25,7 @@
 #include <hardware/gpio.h>
 #include <hardware/structs/iobank0.h>
 #include <hardware/irq.h>
-#include "core/hardwarespi.h"
+#include "core/HardwareSPI.h"
 #include "misc/debug.h"
 #include "core/wiring_private.h"
 using namespace ardPort::core;
