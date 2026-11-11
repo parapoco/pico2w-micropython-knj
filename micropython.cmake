@@ -1,11 +1,10 @@
 add_library(KNJGfx9341 INTERFACE)
 
-# C++17を有効化し、警告(-Werror)を無視し、MICROPY_BUILD_TYPEを確実に定義する
+# C++17を有効化し、警告(-Werror)を無視する設定
 set(CMAKE_CXX_STANDARD 17)
 target_compile_options(KNJGfx9341 INTERFACE
     -Wno-error
     -Wno-unknown-pragmas
-    -DMICROPY_BUILD_TYPE
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++17>
 )
 
