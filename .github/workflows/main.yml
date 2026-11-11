@@ -1,0 +1,42 @@
+name: Build MicroPython Pico2W
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: 1. Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git build-essential cmake gcc-arm-none-eabi libnewlib-arm-none-eabi python3
+
+      - name: 2. Clone MicroPython
+        run: |
+          git clone https://github.com/micropython/micropython.git --branch master --depth 1
+
+      - name: 3. Checkout KNJGfx9341 into ports/rp2/myModule
+        uses: actions/checkout@v4
+        with:
+          path: micropython/ports/rp2/myModule
+
+      - name: 4. Build Submodules & mpy-cross
+        run: |
+          cd micropython
+          make -C ports/rp2 submodules BOARD=RPI_PICO2_W
+          make -C mpy-cross
+
+      - name: 5. Build Firmware for Pico 2 W
+        run: |
+          cd micropython/ports/rp2
+          make BOARD=RPI_PICO2_W USER_C_MODULES=./myModule/micropython.cmake
+
+      - name: 6. Upload UF2 Firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-pico2w
+          path: micropython/ports/rp2/build-RPI_PICO2_W/firmware.uf2
