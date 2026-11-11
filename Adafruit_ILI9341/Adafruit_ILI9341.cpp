@@ -74,7 +74,9 @@ using namespace ardPort;
 
 
 #include <limits.h>
-
+// ========== ここに追記 ==========
+namespace ardPort {
+// ================================
 #if defined(ARDUINO_ARCH_ARC32) || defined(ARDUINO_MAXIM)
 	#define SPI_DEFAULT_FREQ 16000000
 // Teensy 3.0, 3.1/3.2, 3.5, 3.6
@@ -406,3 +408,6 @@ void Adafruit_ILI9341::drawChar(int16_t x, int16_t y, uint8_t w, uint8_t h, cons
 		Adafruit_GFX::drawChar(x, y, w, h, bmpData, color, bg, size_x, size_y);
 	}
 }
+// ========== ここに追記 ==========
+} // namespace ardPort
+// ================================
