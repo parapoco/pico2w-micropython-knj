@@ -46,9 +46,10 @@
  * BSD license, all text here must be included in any redistribution.
  *
  */
+
 #include "defines.h"
 
-#ifdef STD_SDK
+#if defined(STD_SDK) || defined(MICROPY_BUILD_TYPE)
 	#include "Adafruit_ILI9341.h"
 	#include "misc/pins.h"
 	#ifndef pgm_read_byte
@@ -70,6 +71,7 @@ using namespace ardPort;
 		#endif
 	#endif
 #endif
+
 
 #include <limits.h>
 
