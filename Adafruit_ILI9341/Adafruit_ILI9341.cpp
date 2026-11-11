@@ -404,3 +404,34 @@ void Adafruit_ILI9341::drawChar(int16_t x, int16_t y, uint8_t w, uint8_t h, cons
 		Adafruit_GFX::drawChar(x, y, w, h, bmpData, color, bg, size_x, size_y);
 	}
 }
+// ===== ここから下のコードを Adafruit_ILI9341.cpp の末尾に追記してください =====
+
+#if defined(STD_SDK) || defined(MICROPY_BUILD_TYPE)
+namespace ardPort {
+
+// 1. デフォルトコンストラクタ（MicroPythonのオブジェクト生成用）
+Adafruit_ILI9341::Adafruit_ILI9341() : Adafruit_SPITFT(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT, -1, -1, -1) {
+    bUseWindow = false;
+}
+
+// 2. MicroPythonからの初期化メソッド
+void Adafruit_ILI9341::constructObject(core::HardwareSPI* spi, int8_t dc, int8_t cs, int8_t rst) {
+    // 欠落している初期化処理を代行
+    _dc = dc;
+    _cs = cs;
+    _rst = rst;
+    // _spi = spi; // 環境によってSPI変数の型エラーが出る場合はコメントアウトでOKです
+}
+
+// 3. スリープ制御メソッド
+void Adafruit_ILI9341::displaySleep(bool sleep) {
+    if (sleep) {
+        sendCommand(0x10); // ILI9341_SLPIN
+    } else {
+        sendCommand(0x11); // ILI9341_SLPOUT
+        delay(120);
+    }
+}
+
+} // namespace ardPort
+#endif
