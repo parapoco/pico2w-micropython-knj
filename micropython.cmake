@@ -1,13 +1,11 @@
 add_library(KNJGfx9341 INTERFACE)
 
-# Pico 2 W (PICO_BOARD_VALUE=4) として認識させる
-target_compile_definitions(KNJGfx9341 INTERFACE PICO_BOARD_VALUE=4)
-
-# C++17を有効化し、警告(-Werror)でビルドが止まらないようにする
+# C++17を有効化し、警告(-Werror)を無視し、MICROPY_BUILD_TYPEを確実に定義する
 set(CMAKE_CXX_STANDARD 17)
 target_compile_options(KNJGfx9341 INTERFACE
     -Wno-error
     -Wno-unknown-pragmas
+    -DMICROPY_BUILD_TYPE
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++17>
 )
 
