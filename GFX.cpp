@@ -144,15 +144,15 @@ extern "C" {
 	}
 
 #pragma region 初期化・設定関数
-	Adafruit_ILI9341* pTFT;
-	Adafruit_ILI9341 tft;
+	Adafruit_ILI9341* pTFT = nullptr; // ★修正ポイント1: ポインタで宣言
 	/// @brief ハードウェアの初期化処理
 
 	mp_obj_t initHW(mp_obj_t args)
 	{
-		// static Adafruit_ILI9341 tft;
-		// pTFT = NULL;
-		pTFT = &tft;
+		// ★修正ポイント2: 呼ばれたタイミングで実体化する
+		if (pTFT == nullptr) {
+			pTFT = new Adafruit_ILI9341();
+		}
 
 		// タプルを取得
 		size_t len;
@@ -332,7 +332,7 @@ extern "C" {
 		return mp_obj_new_int(color);
 	}
 	/// @brief 画面の特定の場所に、点を書く
-	/// @param a_xy	画面の座標。タプルで指定する。x,yの順番　
+	/// @param a_xy	画面の座標。タプルで指定する。x,yの順番 
 	/// @param a_color	色。16bitの整数値で指定する。RGB565形式
 	/// @return
 	mp_obj_t drawPixel(mp_obj_t a_Target, mp_obj_t a_xy, mp_obj_t a_color)
@@ -364,7 +364,7 @@ extern "C" {
 	/// @brief 高速に（ほんと？）縦線を引く
 	/// @param a_xy 開始の座標。タプルで指定する。x,yの順番
 	/// @param a_h 	高さ。整数値
-	/// @param a_color　色。16bitの整数値で指定する。RGB565形式
+	/// @param a_color 色。16bitの整数値で指定する。RGB565形式
 	/// @return
 	mp_obj_t drawFastVLine(mp_obj_t a_Target, mp_obj_t a_xyl, mp_obj_t a_color)
 	{
@@ -1052,8 +1052,7 @@ extern "C" {
 #pragma endregion
 
 #pragma region タッチ関連
-	XPT2046_Touchscreen* pTouch;
-	XPT2046_Touchscreen ts;
+	XPT2046_Touchscreen* pTouch = nullptr; // ★修正ポイント3: ポインタで宣言
 
 	uint16_t minX;
 	uint16_t minY;
@@ -1062,7 +1061,11 @@ extern "C" {
 
 	mp_obj_t initTouchHW(mp_obj_t a_CS, mp_obj_t a_IRQ)
 	{
-		pTouch = &ts;
+		// ★修正ポイント4: 呼ばれたタイミングで実体化する
+		if (pTouch == nullptr) {
+			pTouch = new XPT2046_Touchscreen();
+		}
+
 		if (!mp_obj_is_int(a_CS)) raise_mustInt();
 		if (!mp_obj_is_int(a_IRQ)) raise_mustInt();
 		int iCS = mp_obj_get_int(a_CS);
