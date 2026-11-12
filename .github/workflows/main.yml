@@ -33,8 +33,9 @@ jobs:
       - name: 5. Build Firmware for Pico 2 W
         run: |
           cd micropython/ports/rp2
-          make BOARD=RPI_PICO2_W USER_C_MODULES=./myModule/micropython.cmake
-
+          #make BOARD=RPI_PICO2_W USER_C_MODULES=./myModule/micropython.cmake
+          make BOARD=RPI_PICO2_W
+          
       - name: 6. Upload UF2 Firmware
         uses: actions/upload-artifact@v4
         with:
