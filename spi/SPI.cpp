@@ -212,15 +212,9 @@ bool SPIClassRP2040::transferAsync(const void* send, void* recv, size_t bytes)
 	}
 
 	if (send && (_spis.getBitOrder() != MSBFIRST)) {
-// #ifdef MICROPY_BUILD_TYPE
-// 		_dmaBuffer = (uint8_t*)mp_obj_new_bytearray(bytes, NULL);
-// 		//_dmaBuffer = (uint8_t*)malloc(bytes);
-// #else
-// 		_dmaBuffer = (uint8_t*)malloc(bytes);
-// #endif
-
-// 上記をすべてコメントアウト（または削除）し、以下の1行だけにする
-_dmaBuffer = (uint8_t*)malloc(bytes);
+// ===== 修正箇所：MicroPythonのAPIを使わず、標準のmallocを使用する =====
+		_dmaBuffer = (uint8_t*)malloc(bytes);
+// ======================================================================
 		if (!_dmaBuffer) {
 			dma_channel_unclaim(_channelDMA);
 			dma_channel_unclaim(_channelSendDMA);
