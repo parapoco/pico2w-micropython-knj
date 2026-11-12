@@ -144,12 +144,14 @@ extern "C" {
 	}
 
 #pragma region 初期化・設定関数
-	Adafruit_ILI9341* pTFT = nullptr; // ★修正ポイント1: ポインタで宣言
+	Adafruit_ILI9341* pTFT = nullptr; // ★修正ポイント1: ポインタで宣言する
+	// Adafruit_ILI9341 tft; // ★削除：システム起動前の実体化（フリーズの原因）を防ぐ
+
 	/// @brief ハードウェアの初期化処理
 
 	mp_obj_t initHW(mp_obj_t args)
 	{
-		// ★修正ポイント2: 呼ばれたタイミングで実体化する
+		// ★修正ポイント2: 初期化が呼ばれたタイミングで実体化（メモリ確保）する
 		if (pTFT == nullptr) {
 			pTFT = new Adafruit_ILI9341();
 		}
@@ -190,9 +192,6 @@ extern "C" {
 		//  結果を返す
 		return mp_obj_new_int(1);
 	}
-
-
-
 
 	/// @brief デバッグモードの設定
 	/// @param a_level デバッグモードのレベル。0は無効、1は有効
@@ -255,8 +254,6 @@ extern "C" {
 		return mp_obj_new_int(1);
 	}
 
-
-
 	/// @brief 画面のスリープモード
 	/// @param a_tf スリープモードに入るときはtrue、出るときはfalse
 	/// @return
@@ -269,7 +266,6 @@ extern "C" {
 		return mp_obj_new_int(1);
 	}
 
-	
 #pragma endregion
 
 #pragma region 特殊描画関数
@@ -624,8 +620,7 @@ extern "C" {
 		msg_OnDebug("fillRoundRect(%d,(%d,%d,%d,%d,%d),0x%04X\r\n", iTarget, x, y, w, h, r, c);
 		return mp_obj_new_int(1);
 	}
-
-	mp_obj_t drawTriangle(mp_obj_t a_Target, mp_obj_t a_xyxy, mp_obj_t a_color)
+mp_obj_t drawTriangle(mp_obj_t a_Target, mp_obj_t a_xyxy, mp_obj_t a_color)
 	{
 		int iTarget = mp_obj_get_int(a_Target);
 		// タプルを取得
@@ -1052,7 +1047,8 @@ extern "C" {
 #pragma endregion
 
 #pragma region タッチ関連
-	XPT2046_Touchscreen* pTouch = nullptr; // ★修正ポイント3: ポインタで宣言
+	XPT2046_Touchscreen* pTouch = nullptr; // ★修正ポイント3: ポインタで宣言する
+	// XPT2046_Touchscreen ts; // ★削除：システム起動前の実体化を防ぐ
 
 	uint16_t minX;
 	uint16_t minY;
@@ -1061,7 +1057,7 @@ extern "C" {
 
 	mp_obj_t initTouchHW(mp_obj_t a_CS, mp_obj_t a_IRQ)
 	{
-		// ★修正ポイント4: 呼ばれたタイミングで実体化する
+		// ★修正ポイント4: 呼ばれたタイミングで初めて実体化（メモリ確保）する
 		if (pTouch == nullptr) {
 			pTouch = new XPT2046_Touchscreen();
 		}
@@ -1148,3 +1144,4 @@ extern "C" {
 
 
 } //
+
