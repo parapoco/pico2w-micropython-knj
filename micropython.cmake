@@ -13,7 +13,7 @@ set(SRC_FILES
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_GFX_Library/Adafruit_GFX.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_GFX_Library/Adafruit_SPITFT.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_ILI9341/Adafruit_ILI9341.cpp
-    #${CMAKE_CURRENT_LIST_DIR}/spi/SPI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/spi/SPI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Kanji/KanjiHelper.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/cyw43_wrappers.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/delay.cpp
