@@ -274,8 +274,5 @@ private:
 
 
 }
-
-}
-
 extern ardPort::spi::SPIClassRP2040 SPI;
 extern ardPort::spi::SPIClassRP2040 SPI1;
