@@ -156,40 +156,16 @@ static bool CheckPicoW() {
 bool __isPicoW = true;
 
 extern "C" void init_cyw43_wifi() {
-	__isPicoW = CheckPicoW();
-	if (__isPicoW) {
-			// Fix for overclocked CPU: SPI communication breaks down with default "div by 2" speed
-			// So, divide clock by 4 for anything including and above 250MHz CPU frequency.
-		#ifdef STD_SDK
-			#if CYW43_PIO_CLOCK_DIV_DYNAMIC
-		if (clock_get_hz(clk_sys) >= 250000000) {
-			cyw43_set_pio_clock_divisor(4, 0);  // div by 4.0
-		}
-			#endif
-
-		#else
-		// Fix for overclocked CPU: SPI communication breaks down with default "div by 2" speed
-		// So, divide clock by 4 for anything including and above 250MHz CPU frequency.
-		if (clock_get_hz(clk_sys) >= 250000000) {
-			cyw43_set_pio_clock_divisor(4, 0);  // div by 4.0
-		}
-
-		#endif
-		cyw43_arch_init_with_country(WIFICC);
-	}
+	// ★修正箇所：MicroPython環境との競合を防ぐため、Wi-Fiの初期化を無効化
 }
 
 extern "C" void __lockBluetooth() {
-	async_context_acquire_lock_blocking(cyw43_arch_async_context());
+	// ★修正箇所：無効化
 }
 
 extern "C" void __unlockBluetooth() {
-	async_context_release_lock(cyw43_arch_async_context());
+	// ★修正箇所：無効化
 }
-
-// extern "C" void __pinMode(pin_size_t pin, PinMode mode);
-// extern "C" void __digitalWrite(pin_size_t pin, PinStatus val);
-// extern "C" PinStatus __digitalRead(pin_size_t pin);
 
 extern "C" void cyw43_pinMode(pin_size_t pin, PinMode mode) {
 	if (!__isPicoW && (pin == PIN_LED)) {
@@ -355,35 +331,15 @@ static bool CheckPicoW() {
 bool __isPicoW = true;
 
 extern "C" void init_cyw43_wifi() {
-	__isPicoW = CheckPicoW();
-	if (__isPicoW) {
-				// Fix for overclocked CPU: SPI communication breaks down with default "div by 2" speed
-				// So, divide clock by 4 for anything including and above 250MHz CPU frequency.
-			#ifdef STD_SDK
-				#if CYW43_PIO_CLOCK_DIV_DYNAMIC
-		if (clock_get_hz(clk_sys) >= 250000000) {
-			cyw43_set_pio_clock_divisor(4, 0);  // div by 4.0
-		}
-				#endif
-
-			#else
-		// Fix for overclocked CPU: SPI communication breaks down with default "div by 2" speed
-		// So, divide clock by 4 for anything including and above 250MHz CPU frequency.
-		if (clock_get_hz(clk_sys) >= 250000000) {
-			cyw43_set_pio_clock_divisor(4, 0);  // div by 4.0
-		}
-
-			#endif
-		cyw43_arch_init_with_country(WIFICC);
-	}
+	// ★修正箇所：MicroPython環境との競合を防ぐため、Wi-Fiの初期化を無効化
 }
 
 extern "C" void __lockBluetooth() {
-	async_context_acquire_lock_blocking(cyw43_arch_async_context());
+	// ★修正箇所：無効化
 }
 
 extern "C" void __unlockBluetooth() {
-	async_context_release_lock(cyw43_arch_async_context());
+	// ★修正箇所：無効化
 }
 
 extern "C" void __pinMode(pin_size_t pin, PinMode mode);
