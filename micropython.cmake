@@ -15,16 +15,16 @@ set(SRC_FILES
     ${CMAKE_CURRENT_LIST_DIR}/Adafruit_ILI9341/Adafruit_ILI9341.cpp
     ${CMAKE_CURRENT_LIST_DIR}/spi/SPI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Kanji/KanjiHelper.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/cyw43_wrappers.cpp
+    #${CMAKE_CURRENT_LIST_DIR}/core/cyw43_wrappers.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/delay.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/_freertos.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/CoreMutex.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/Print.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/stdlib_noniso.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/WString.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/wiring_private.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/wiring_digital.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/wiring_analog.cpp
+    #${CMAKE_CURRENT_LIST_DIR}/core/wiring_private.cpp
+    #${CMAKE_CURRENT_LIST_DIR}/core/wiring_digital.cpp
+    #${CMAKE_CURRENT_LIST_DIR}/core/wiring_analog.cpp
     ${CMAKE_CURRENT_LIST_DIR}/XPT2046_Touchscreen/XPT2046_Touchscreen.cpp
     ${CMAKE_CURRENT_LIST_DIR}/misc/pins.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GFXModule.c
