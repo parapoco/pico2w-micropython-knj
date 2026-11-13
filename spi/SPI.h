@@ -275,5 +275,7 @@ private:
 
 }
 
-extern ardPort::spi::SPIClassRP2040* SPI;   // ポインタに変更
-extern ardPort::spi::SPIClassRP2040* SPI1;  // ポインタに変更
+}
+
+extern ardPort::spi::SPIClassRP2040 SPI;
+extern ardPort::spi::SPIClassRP2040 SPI1;
